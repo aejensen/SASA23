@@ -1,1 +1,1 @@
-# SASA23
+# SASA ’23 Short Course on Causal Inference
