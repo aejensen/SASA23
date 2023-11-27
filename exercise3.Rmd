@@ -116,28 +116,28 @@ We will use the same data set, `nhefs`, as in the previous exercise and the `std
    b. Deliberately misspecify the propensity score model in the argument `formula_exposure` and save the bootstrap estimates under the name `res3`.
    c. Deliberately misspecify *both* the outcome model and the propensity score model and save the bootstrap estimates under the name `res4`.
 
-```{r, eval = params$showOutput, comment="", echo = FALSE}
-R <- 250
-set.seed(12345)
-res1 <- sapply(1:R, \(r) {
-   bootI <- sample(1:nrow(nhefs_dat), nrow(nhefs_dat), replace = TRUE)
-   dataBoot <- nhefs_dat[bootI, ]
-   m <- standardize_glm_dr(formula_outcome = wt82_71 ~ qsmk + sex + race + 
-                             age + I(age^2) + as.factor(education) + 
-                             smokeintensity + I(smokeintensity^2) + 
-                             smokeyrs + I(smokeyrs^2) + as.factor(exercise) + 
-                             as.factor(active) + wt71 + I(wt71^2), 
-                           formula_exposure = qsmk ~ sex + race + 
-                             age + I(age^2) + as.factor(education) + 
-                             smokeintensity + I(smokeintensity^2) + smokeyrs + 
-                             I(smokeyrs^2) + as.factor(exercise) + as.factor(active) + 
-                             wt71 + I(wt71^2),
-                           data = dataBoot, 
-                           values = list(qsmk = c(0, 1)),
-                           contrast = c("difference", "ratio"),
-                           reference = 0)
-    m$res_contrast[[2]]$est_table[2, "Estimate"]
-})
+   ```{r, eval = params$showOutput, comment=""}
+   R <- 250
+   set.seed(12345)
+   res1 <- sapply(1:R, \(r) {
+      bootI <- sample(1:nrow(nhefs_dat), nrow(nhefs_dat), replace = TRUE)
+      dataBoot <- nhefs_dat[bootI, ]
+      m <- standardize_glm_dr(formula_outcome = wt82_71 ~ qsmk + sex + race + 
+                                age + I(age^2) + as.factor(education) + 
+                                smokeintensity + I(smokeintensity^2) + 
+                                smokeyrs + I(smokeyrs^2) + as.factor(exercise) + 
+                                as.factor(active) + wt71 + I(wt71^2), 
+                              formula_exposure = qsmk ~ sex + race + 
+                                age + I(age^2) + as.factor(education) + 
+                                smokeintensity + I(smokeintensity^2) + smokeyrs + 
+                                I(smokeyrs^2) + as.factor(exercise) + as.factor(active) + 
+                                wt71 + I(wt71^2),
+                              data = dataBoot, 
+                              values = list(qsmk = c(0, 1)),
+                              contrast = c("difference", "ratio"),
+                              reference = 0)
+      m$res_contrast[[2]]$est_table[2, "Estimate"]
+   })
 
 set.seed(12345)
 res2 <- sapply(1:R, \(r) {
@@ -185,7 +185,7 @@ res4 <- sapply(1:R, \(r) {
                            reference = 0)
     m$res_contrast[[2]]$est_table[2, "Estimate"]
 })
-```
+   ```
 
 8. Compare the bootstrap distributions of the average treatment effect under the four different scenarios by looking at 
    ```{r, eval = params$showOutput, comment=""}
