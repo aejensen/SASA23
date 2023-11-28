@@ -19,7 +19,7 @@ params:
 
 In this exercise we are interested in estimating the average causal effect of quitting smoking on the amount of weight gain over a ten year period using observational data from the NHEFS study. We will look at two ways of estimating the causal effect, namely G-estimation and Inverse Probability of Treatment Weighting (IPTW).
 
-In order to run the R commands in this exercise, you need to have the R packages \texttt{boot}, \texttt{geepack, \texttt{stdReg2}, and \texttt{causaldata} installed. If you don't have them installed you should start by executing the following three lines
+In order to run the R commands in this exercise, you need to have the R packages \texttt{boot}, \texttt{geepack}, \texttt{stdReg2}, and \texttt{causaldata} installed. If you don't have them installed you should start by executing the following three lines
    ```{r, eval = FALSE}
    install.packages("boot")
    install.packages("geepack")
@@ -73,7 +73,7 @@ Here we will use the G-formula to estimate the average causal effect of the expo
 
 We recall that the implementation of the G-formula in the estimation of the average causal effect can be estimated as
 \begin{align*}
-  \frac{1}{n}\sum_{i=1}^n E[Y_i \mid A_i = 1, L_i] - \frac{1}{n}\sum_{i=1}^n E[Y_i \mid A_i = 0, L_i] 
+  \frac{1}{n}\sum_{i=1}^n E[Y \mid A = 1, L_i] - \frac{1}{n}\sum_{i=1}^n E[Y \mid A = 0, L_i] 
 \end{align*}
 
 In order to implement this, we start by making three copies of the data: one with the original exposure values ($A_i$ in the above notation and \texttt{qsmk} in the data set), one where the exposure is provisionally set equal to $0$, and one where it is set equal to $1$. In the two data sets where we set the exposure provisionally equal to 0 and 1, we set the outcome \texttt{wt82\_71} equal to missing (NA) since these values will be predicted from the model $E[Y_i\mid A_i, L_i]$. 
